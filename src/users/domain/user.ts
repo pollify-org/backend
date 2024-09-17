@@ -47,8 +47,6 @@ export class User {
   })
   lastName: string | null;
 
-
-
   @ApiProperty({
     type: () => Role,
   })

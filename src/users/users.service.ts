@@ -19,9 +19,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    private readonly usersRepository: UserRepository
-  ) {}
+  constructor(private readonly usersRepository: UserRepository) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     // Do not remove comment below.
@@ -50,9 +48,6 @@ export class UsersService {
       }
       email = createUserDto.email;
     }
-    
-
-
 
     let role: Role | undefined = undefined;
 

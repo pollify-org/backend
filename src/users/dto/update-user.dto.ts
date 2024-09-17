@@ -31,7 +31,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsOptional()
   lastName?: string | null;
 
-
   @ApiPropertyOptional({ type: () => RoleDto })
   @IsOptional()
   @Type(() => RoleDto)

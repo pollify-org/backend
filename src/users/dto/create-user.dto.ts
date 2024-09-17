@@ -38,7 +38,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string | null;
 
-
   @ApiPropertyOptional({ type: RoleDto })
   @IsOptional()
   @Type(() => RoleDto)
