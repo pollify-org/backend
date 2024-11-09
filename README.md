@@ -1,37 +1,34 @@
 # Polify
 
-Polify: Um projeto backend para o sistema do projeto integrador da Universidade Evangélica de Goiás, desenvolvido em FastAPI.
+Polify é um projeto de backend desenvolvido com FastAPI, originado de um projeto maior da Universidade Evangélica de Goiás. O módulo de usuário foi transportado para esta versão com o objetivo de demonstrar a aplicação dos conceitos abordados na disciplina de API Backend. A estrutura foi mantida de forma anônima, preservando o código fonte original dos desenvolvedores, mas permitindo a demonstração das boas práticas e conceitos como SOLID.
 
-## Como começar
+Este projeto foi projetado para ser executado **únicamente em distribuições Linux**.
 
-```bash
-python3 -m venv env
-source env/bin/activate
-```
+## Como Começar
 
-Crie um arquivo `.env` seguindo o modelo `example.env`
+1. Clone o repositório e entre no diretório do projeto.
 
-O arquivo `app/config.py` possui três configurações: Teste, Desenvolvimento e Produção.
+2. Execute o script de setup para configurar o ambiente e instalar as dependências:
 
-```bash
-touch .env
-```
+   ```bash
+   ./setup.sh
+   ```
 
-Execute o comando abaixo para instalar as dependências. O arquivo `runtime.txt` especifica a versão de runtime utilizada.
+   Durante o processo, o script irá:
+   - Preencher as dependências no arquivo `.env`, baseado no modelo fornecido.
+   - Instalar as dependências necessárias.
 
-```bash
-bash reset.sh
-```
+3. O arquivo `app/config.py` contém três configurações principais: **Teste**, **Desenvolvimento** e **Produção**. Escolha a configuração desejada.
 
-## Executar a aplicação localmente
+4. Para rodar a aplicação localmente, execute:
 
-```bash
-python run.py
-```
+   ```bash
+   python run.py
+   ```
 
-## Executar testes
+## Executar os Testes
 
-Utilizamos a configuração `TestConfig` para rodar os testes.
+O ambiente de testes está configurado com o `TestConfig`. Para rodar os testes, execute:
 
 ```bash
 bash test.sh
@@ -39,42 +36,30 @@ bash test.sh
 
 ## Funcionalidades
 
-- **SQLAlchemy Assíncrono**: Utiliza as capacidades assíncronas do SQLAlchemy para operações eficientes com banco de dados.
-- **Framework FastAPI**: Leva vantagem do FastAPI para construir APIs de alto desempenho com Python 3.8+.
-- **Validação de Dados com Pydantic**: Emprega modelos Pydantic para garantir integridade e validação dos dados.
-- **Autenticação OAuth2**: Implementa protocolos OAuth2 para autenticação e autorização seguras.
-- **Logging Abrangente**: Inclui logging para monitorar o comportamento da aplicação e facilitar a depuração.
-- **Configurações Baseadas em Ambiente**: Suporta várias configurações (Teste, Desenvolvimento, Produção) para se adaptar a diferentes cenários de implantação.
+- **SQLAlchemy Assíncrono**: Aproveita a performance assíncrona do SQLAlchemy para operações eficientes com o banco de dados.
+- **FastAPI**: A estrutura FastAPI é utilizada para garantir alta performance e rapidez na construção das APIs.
+- **Validação de Dados com Pydantic**: Utiliza modelos Pydantic para garantir que os dados sejam validados e integros.
+- **Autenticação OAuth2**: Implementa OAuth2 para autenticação e autorização seguras.
+- **Logging Abrangente**: Logging detalhado para monitoramento e depuração da aplicação.
+- **Configurações Baseadas em Ambiente**: Suporta múltiplas configurações de ambiente (Teste, Desenvolvimento, Produção) para adaptação a diferentes cenários de implantação.
 
 ## Estrutura do Projeto
 
-A aplicação modela três principais entidades:
+Este projeto foca no módulo de **Usuário**, o qual é o único componente transportado para demonstrar os conceitos abordados. A estrutura do banco de dados é otimizada para garantir uma manipulação eficiente dos dados.
 
-- **User**: Representa os usuários da aplicação.
-- **Post**: Denota conteúdo criado pelos usuários.
-- **Tag**: Classifica os posts para melhor organização.
+### Carregamento Eficiente de Relacionamentos
 
-As relações entre esses modelos são definidas da seguinte forma:
+A aplicação implementa técnicas de carregamento eficiente de relacionamentos:
 
-- Um **Usuário** pode ter várias **Tags**.
-- Um **Usuário** pode criar vários **Posts**.
-- **Posts** e **Tags** compartilham uma relação muitos-para-muitos, gerida por uma tabela de associação.
+- **Carregamento Seletivo**: Quando múltiplos registros são recuperados, as entidades relacionadas não são carregadas automaticamente, evitando consultas desnecessárias ao banco de dados.
+- **Carregamento Antecipado**: Quando um único registro é recuperado, as entidades relacionadas são carregadas junto para evitar múltiplas consultas.
 
-Este design facilita a recuperação e manipulação eficientes dos dados, seguindo as melhores práticas de normalização de banco de dados.
-
-## Carregamento Eficiente de Relacionamentos
-
-Para otimizar o desempenho, o framework utiliza estratégias seletivas de carregamento de relacionamentos:
-
-- Ao buscar múltiplos registros de um modelo, entidades relacionadas não são carregadas por padrão, reduzindo consultas desnecessárias ao banco de dados.
-- Ao recuperar um único registro, geralmente pelo seu ID, as entidades relacionadas são carregadas antecipadamente para fornecer dados completos em uma única consulta.
-
-Esta abordagem equilibra desempenho com disponibilidade de dados, garantindo uma utilização eficiente dos recursos.
+Essas estratégias ajudam a balancear desempenho e disponibilidade de dados, otimizando o uso de recursos.
 
 ## Classe Base do Modelo
 
-O projeto define uma classe `Base` personalizada da qual todos os modelos herdam. Esta classe inclui configurações e comportamentos comuns, promovendo reutilização de código e consistência nos modelos de dados da aplicação.
+A aplicação utiliza uma classe base personalizada, da qual todos os modelos herdam. Isso facilita a reutilização de código e garante consistência no comportamento dos modelos de dados.
 
 ## Informações do Projeto
 
-**Autor**: João Victor Guimarães Santos  
+**Autor**: João Victor Guimarães Santos
