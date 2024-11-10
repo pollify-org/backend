@@ -4,7 +4,7 @@ from uuid import uuid4
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, SecretStr, model_validator
 
 from app.database.schemas import BaseOut
-from app.functions.exceptions import unprocessable_entity
+from app.commons.exceptions import unprocessable_entity
 from app.models.auth.role import Role
 
 

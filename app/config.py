@@ -1,5 +1,4 @@
 from functools import cache
-
 from pydantic import EmailStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -11,7 +10,7 @@ class BaseConfig(BaseSettings):
 
 
 class Config(BaseConfig):
-    DB_URL: str = "sqlite+aiosqlite:///test.db"
+    DB_URL: str = "postgresql+asyncpg://postgres:postgres@localhost/default_db"
     SECRET_KEY: str = "123"
     ALGORITHM: str = "HS512"
     TOKEN_EXPIRE_SECONDS: int = 3600
@@ -33,7 +32,7 @@ class DevConfig(Config):
     model_config = SettingsConfigDict(
         env_file=".env", env_prefix="DEV_", extra="ignore"
     )
-    DB_URL: str = "sqlite+aiosqlite:///dev.db"
+    DB_URL: str = "postgresql+asyncpg://postgres:postgres@localhost/dev_db"
     TOKEN_EXPIRE_SECONDS: int = 3600 * 24
     RESET_EXPIRE_SECONDS: int = 3600
     LOG_LEVEL: str = "DEBUG"
@@ -43,6 +42,7 @@ class ProdConfig(Config):
     model_config = SettingsConfigDict(
         env_file=".env", env_prefix="PROD_", extra="ignore"
     )
+    DB_URL: str = "postgresql+asyncpg://user:password@localhost/prod_db"
 
 
 @cache
@@ -50,4 +50,5 @@ def get_config(env: str = "dev") -> TestConfig | DevConfig | ProdConfig:
     return dict(test=TestConfig, dev=DevConfig, prod=ProdConfig)[env](ENV_STATE=env)
 
 
+# Load the configuration based on the ENV_STATE
 config = get_config(env=BaseConfig().ENV_STATE)

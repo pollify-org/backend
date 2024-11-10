@@ -3,7 +3,7 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import QueryableAttribute, joinedload
 from sqlalchemy import select
-from app.functions.exceptions import not_found
+from app.commons.exceptions import not_found
 
 T = TypeVar("T")
 

@@ -2,7 +2,7 @@ import logging
 import time
 
 from app.config import config
-from app.functions.exceptions import too_many_requests
+from app.commons.exceptions import too_many_requests
 
 logger = logging.getLogger(__name__)
 

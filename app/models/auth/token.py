@@ -5,8 +5,8 @@ from pytz import UTC
 from pydantic import AfterValidator, BaseModel, Field, computed_field
 
 from app.config import config
-from app.functions.exceptions import forbidden
-from app.functions.jwt import decode, encode
+from app.commons.exceptions import forbidden
+from app.commons.jwt import decode, encode
 from app.models.auth.role import Role
 from app.models.auth.schemas import TokenDecode, TokenEncode
 

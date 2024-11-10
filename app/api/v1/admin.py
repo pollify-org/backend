@@ -5,7 +5,7 @@ from app.database.dependencies import sessDep
 
 from app.api.v1.user import request_reset_password
 from app.database.dependencies import sessDep
-from app.functions.exceptions import conflict
+from app.commons.exceptions import conflict
 from app.models.auth.functions import authorize
 from app.models.auth.role import Role
 from app.models.user import User

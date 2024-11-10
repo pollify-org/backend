@@ -1,13 +1,10 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Python application
+name: Build and Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 permissions:
   contents: read
@@ -18,14 +15,35 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.12
+    
+    - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
-        python-version: "3.12"
+        python-version: "3.10"
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        ./reset.sh
-    - name: Test with pytest
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+        
+    - name: Run tests with pytest and generate coverage report
       run: |
-        ./test.sh
+        pytest --cov=./  # This command generates a coverage report
+    
+    - name: Install SonarScanner
+      uses: sonarsource/sonarqube-scan-action@v1.1
+      with:
+        host-url: ${{ secrets.SONAR_HOST_URL }}
+        projectBaseDir: .
+        projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+        projectName: ${{ secrets.SONAR_PROJECT_NAME }}
+        token: ${{ secrets.SONAR_TOKEN }}
+        
+    - name: Run SonarScanner
+      run: |
+        sonar-scanner \
+          -Dsonar.projectKey=your_project_key \
+          -Dsonar.sources=. \
+          -Dsonar.python.coverage.reportPaths=coverage.xml \
+          -Dsonar.python.version=3.10

@@ -1,7 +1,7 @@
 from sqlalchemy import JSON, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base_model import BaseModel
-from app.functions.hash import check_hash, get_hash
+from app.commons.hash import check_hash, get_hash
 from app.models.auth.role import Role
 
 

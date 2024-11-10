@@ -15,7 +15,6 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def create_all():
-    from app.models.tag.association import Association  
     from app.models.user import User  
 
     async with engine.begin() as conn:

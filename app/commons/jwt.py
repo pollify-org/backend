@@ -4,7 +4,7 @@ from jose import jwt
 from jose.exceptions import ExpiredSignatureError
 
 from app.config import config
-from app.functions.exceptions import expired_token, unauthorized_bearer
+from app.commons.exceptions import expired_token, unauthorized_bearer
 
 logger = logging.getLogger(__name__)
 

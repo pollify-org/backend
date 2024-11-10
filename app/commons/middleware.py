@@ -7,7 +7,7 @@ from fastapi import FastAPI, Request
 
 from app.config import config
 from app.database.functions import create_all, drop_all
-from app.functions.logger import setup_logger
+from app.commons.logger import setup_logger
 from app.models.user.functions import create_admin_user
 
 logger = logging.getLogger(__name__)

@@ -5,8 +5,8 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordRequestForm, SecurityScopes
 
 from app.database.dependencies import sessDep
-from app.functions.exceptions import forbidden, unauthorized_basic
-from app.functions.limiter import rate_limiter
+from app.commons.exceptions import forbidden, unauthorized_basic
+from app.commons.limiter import rate_limiter
 from app.models.auth.role import Role
 from app.models.auth.schemas import TokenDecode, TokenEncode
 from app.models.auth.schemes import oauth2_scheme

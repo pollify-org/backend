@@ -2,11 +2,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import BackgroundTasks
 from app.repositories.user_repository import UserRepository
 from app.models.user.schemas import UserIn, PasswordsIn
-from app.functions.exceptions import conflict
+from app.commons.exceptions import conflict
 from app.models.auth.token import Token
 from app.models.auth.role import Role
 from app.config import config
-from app.functions.emailer import send_email
+from app.commons.emailer import send_email
 from app.models.user import User
 
 class UserService:
@@ -17,14 +17,12 @@ class UserService:
         
     @staticmethod
     async def create_user(async_session: AsyncSession, user_in: UserIn, send_email: bool, bt: BackgroundTasks) -> User:
-        # Verifica se o usuário já existe pelo email
         if await UserRepository.find_by_email(async_session, email=user_in.email):
             raise conflict(msg="User already exists")
 
         user = User(**user_in.model_dump())
         user = await UserRepository.save(async_session, user)
         
-        # Envia email de reset de senha, se necessário
         if send_email:
             await UserService.request_reset_password(async_session, user.email, bt)
         
